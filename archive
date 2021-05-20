@@ -1,0 +1,172 @@
+var earth, earthImg, myFont, start, startImg, gameState, question, Co2, rand, o1, o2, o3, o4, o1Img, o2Img, o3Img, o4Img, response, next;
+
+function preload(){
+    earthImg = loadImage('earth.png');
+    myFont = loadFont('Minecraft.ttf');
+    startImg = loadImage('start.png');
+    o1Img = loadImage('o1.png');
+    o2Img = loadImage('o2.png');
+    o3Img = loadImage('o3.png');
+    o4Img = loadImage('o4.png');
+}
+
+function setup(){
+    createCanvas(414, 796);
+    earth = createSprite(200, 200, 207, 398);
+    earth.addImage(earthImg);
+    earth.scale = 1.5;
+    start = createSprite(207, 650, 200, 80);
+    start.addImage(startImg);
+    start.scale = 0.7;
+    gameState = 0;
+    Co2 = 0;
+    response1 = 'none';
+    response2 = 'none';
+    response3 = 'none';
+    next = createSprite(320, 755, 100, 60);
+    next.visible = false;
+    //rand;
+
+    question = [
+        {prompt: "Which power\n(a) Wind\n(b) Coal\n(c) Geothermal\n(d) Radiation", answer:"a"},
+        {prompt: "Which travel\n(a) Car\n(b) Bike\n(c) Plane\n(d) Train", answer:"b"},
+        {prompt: "Which bufdfv\n(a) svhbsf\n(b) s vjs\n(c) svjsf\n(d) sjvbs", answer:"c"}
+    ]
+
+    //rand = Math.random(1, 3);
+}
+
+function draw(){
+    background('#7bbf47');
+
+    console.log(gameState);
+
+    //for(n = 0; n < 10; n++){
+    //    num.pop(rand);
+    //    rand = num[Math.random(0, 9-n)]
+    //}
+
+
+    if(mousePressedOver(start)){
+        start.scale = 0.8;
+    }
+    if(start.scale === 0.8){
+        gameState = 'start';
+    }
+    //alert('You produced ' + Co2 + " pounds of Co2");
+    //o1.visible = false;
+    fill('black');
+    textFont(myFont, 30);
+    text('Environmental Choices', 40, 500);
+
+    if(gameState === 'start'){
+        start.visible = false;
+        earth.visible = false;
+        background('#7bbf47');
+        text(Co2, 100, 100);
+        o1 = createSprite(100, 500, 100, 100);
+        o1.addImage(o1Img);
+        o1.scale = 2.5;
+        o2 = createSprite(300, 500, 100, 100);
+        o2.addImage(o2Img);
+        o2.scale = 2.5;
+        o3 = createSprite(100, 650, 100, 100);
+        o3.addImage(o3Img);
+        o3.scale = 2.5;
+        o4 = createSprite(300, 650, 100, 100);
+        o4.addImage(o4Img);
+        o4.scale = 2.5;
+        //o1.visible = true;
+        //for(var i=1; i < question.length; i++){
+        gameState = 'q3';
+        //}
+    }
+    if(gameState === 'q1'){
+        q1();
+    }
+    if(gameState === 'q2'){
+        q2();
+    }
+    if(gameState === 'q3'){
+        q3();
+    }
+    drawSprites();
+}
+
+function q1(){
+    text(question[0].prompt, 30, 200);
+    if(mousePressedOver(o1)){
+        response1= 'a';
+    }
+    if(mousePressedOver(o2)){
+        response1 = 'b';
+    }
+    if(mousePressedOver(o3)){
+        response1 = 'c';
+    }
+    if(mousePressedOver(o4)){
+        response1 = 'd';
+    }
+    if(response1 === question[0].answer){
+        //background('yellow');
+        Co2 = Co2;
+        gameState = 'q2';
+    }
+    else{
+        Co2++;
+        gameState = 'q2';
+    }
+}
+
+function q2(){
+    background('#7bbf47');
+    text(question[1].prompt, 30, 200);
+    if(mousePressedOver(o1)){
+        response2 = 'a';
+    }
+    if(mousePressedOver(o2)){
+        response2 = 'b';
+    }
+    if(mousePressedOver(o3)){
+        response2 = 'c';
+    }
+    if(mousePressedOver(o4)){
+        response2 = 'd';
+    }
+    if(response2 === question[1].answer){
+        //background('yellow');
+        Co2 = Co2;
+        gameState = 'q3';
+    }
+    else{
+        Co2++;
+        gameState = 'q3';
+    }
+}
+
+function q3(){
+    background('#7bbf47');
+    text(question[2].prompt, 30, 200);
+    if(mousePressedOver(o1)){
+        response3 = 'a';
+    }
+    else if(mousePressedOver(o2)){
+        response3 = 'b';
+    }
+    else if(mousePressedOver(o3)){
+        response3 = 'c';
+    }
+    else if(mousePressedOver(o4)){
+        response3 = 'd';
+    }
+    if(response3 === question[2].answer){
+        //q3();
+        //background('yellow');
+        Co2 = Co2;
+        gameState = 'q1';
+    }
+    else{
+        Co2++;
+        gameState = 'q1';
+    }
+}
